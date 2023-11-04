@@ -10,6 +10,13 @@
                 <v-expansion-panels class="todo-list">
                     <v-expansion-panel>
                         <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
+                            <v-icon 
+                                @touchstart="startDragging" 
+                                @touchend="stopDragging" 
+                                @mousedown="startDragging" 
+                                @mouseup="stopDragging">
+                                mdi-drag-vertical
+                            </v-icon>
                             <div>
                                 <v-checkbox 
                                 v-model="element.isComplete" 
@@ -18,6 +25,7 @@
                                 hide-details="auto"></v-checkbox>
                             </div>
                             <p :class="{'completed': element.isComplete }">{{ element.title }}</p>
+                            
                         </v-expansion-panel-title>
                         <v-expansion-panel-text class="panel-text">
                             <div class="descr-text">
@@ -39,7 +47,7 @@ import { mapGetters } from 'vuex';
 export default{
     data() {
       return {
-        enabled: true,
+        enabled: false,
       }
     },
     components: {
@@ -64,7 +72,13 @@ export default{
         },
         onDragEnd(){
             localStorage.setItem('todos', JSON.stringify(this.todos))
-        }
+        },
+        startDragging() {
+            this.enabled = true;
+        },
+        stopDragging() {
+            this.enabled = false;
+        },
     }
 }
 </script>
