@@ -24,13 +24,6 @@
                 <v-expansion-panels class="todo-list">
                     <v-expansion-panel>
                         <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
-                            <v-icon 
-                                @touchstart="startDragging" 
-                                @touchend="stopDragging" 
-                                @mousedown="startDragging" 
-                                @mouseup="stopDragging">
-                                mdi-drag-vertical
-                            </v-icon>
                             <div>
                                 <v-checkbox 
                                 v-model="element.isComplete" 
@@ -85,12 +78,6 @@ export default{
         ...mapMutations(['clearList']),
         onDragEnd(){
             localStorage.setItem('todos', JSON.stringify(this.todos))
-        },
-        startDragging() {
-            this.enabled = true;
-        },
-        stopDragging() {
-            this.enabled = false;
         },
     }
 }   

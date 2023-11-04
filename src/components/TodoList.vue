@@ -1,5 +1,9 @@
 <template>
     <div class="list">
+        <div class="buttons">
+            <v-btn class="button" v-if="!enabled" @click="dragEn">Swap</v-btn>
+            <v-btn class="button" v-else @click="dragEn">Back</v-btn>
+        </div>
         <draggable
           :list="todos"
           :disabled="!enabled"
@@ -8,13 +12,9 @@
           <template #item="{ element }">
             <div v-if="!element.isComplete" class="list-group-item" :class="{ 'not-draggable': !enabled }">
                 <v-expansion-panels class="todo-list">
-                    <v-expansion-panel>
+                    <v-expansion-panel class="panel">
                         <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
-                            <v-icon 
-                                @touchstart="startDragging" 
-                                @touchend="stopDragging" 
-                                @mousedown="startDragging" 
-                                @mouseup="stopDragging">
+                            <v-icon v-if="enabled">
                                 mdi-drag-vertical
                             </v-icon>
                             <div>
@@ -73,11 +73,8 @@ export default{
         onDragEnd(){
             localStorage.setItem('todos', JSON.stringify(this.todos))
         },
-        startDragging() {
-            this.enabled = true;
-        },
-        stopDragging() {
-            this.enabled = false;
+        dragEn(){
+            this.enabled = !this.enabled
         },
     }
 }
@@ -96,5 +93,28 @@ export default{
 }
 .completed{
     text-decoration: line-through;
+}
+.buttons{
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px 30px;
+        border-radius: 20px;
+        border: 0px;
+        font-size: 25px;
+        font-family: 'Fregat';
+        color: #E6E3E1;
+        background-color: #B37840;
+        text-transform: none;
+    }
+    .button:hover{
+        background-color: #95775A;
+        cursor: pointer;
+    }
 }
 </style>
