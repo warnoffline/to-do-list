@@ -9,7 +9,6 @@
     <todo-create></todo-create>
     <todo-list></todo-list>
     <todo-completed></todo-completed>
-    <Some></Some>
   </div>
 </template>
 <script>
@@ -20,7 +19,7 @@ export default{
   components: {
     TodoCreate,
     TodoList,
-    TodoCompleted
+    TodoCompleted,
   }
 }
 </script>

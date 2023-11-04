@@ -16,22 +16,25 @@
         </div>
         <draggable
           :list="todos"
-          :disabled="!enabled"
+          handle=".handle"
           class="drag"
           @end="onDragEnd">
           <template #item="{ element }">
-            <div v-if="element.isComplete" class="list-group-item" :class="{ 'not-draggable': !enabled }">
+            <div v-if="element.isComplete">
                 <v-expansion-panels class="todo-list">
-                    <v-expansion-panel>
-                        <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
-                            <div>
-                                <v-checkbox 
-                                v-model="element.isComplete" 
-                                @click="completeTodo(element.id)" 
-                                color="green" 
-                                hide-details="auto"></v-checkbox>
+                    <v-expansion-panel class="panel">
+                        <v-expansion-panel-title  class="panel-title">
+                            <button class="handle"> <v-icon>mdi-drag</v-icon></button>
+                            <div class="item-container">
+                                <div>
+                                    <v-checkbox 
+                                    v-model="element.isComplete" 
+                                    @click="completeTodo(element.id)" 
+                                    color="green" 
+                                    hide-details="auto"></v-checkbox>
+                                </div>
+                                <p :class="{'completed': element.isComplete }">{{ element.title }}</p>
                             </div>
-                            <p :class="{'completed': element.isComplete }">{{ element.title }}</p>
                         </v-expansion-panel-title>
                         <v-expansion-panel-text class="panel-text">
                             <div class="descr-text">
@@ -43,7 +46,7 @@
             </v-expansion-panels>
             </div>
           </template>
-        </draggable> 
+        </draggable>
     </div>
 </template>
 <script>
@@ -99,7 +102,7 @@ export default{
 }
 .panel-text{
     background-color: #D1C8B8;
-    width: 100;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
