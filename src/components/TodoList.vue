@@ -38,7 +38,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 export default{
     components: {
         draggable,
@@ -53,16 +53,7 @@ export default{
         }
     },
     methods:{ 
-        completeTodo(id){
-            const todo = this.allTodos.find(item => item.id === id);
-            if (todo) {
-                todo.isComplete = !todo.isComplete;
-                localStorage.setItem('todos', JSON.stringify(this.allTodos));
-            }
-        },
-        onDragEnd(){
-            localStorage.setItem('todos', JSON.stringify(this.todos))
-        },
+        ...mapMutations(['onDragEnd', 'completeTodo']),
     }
 }
 </script>

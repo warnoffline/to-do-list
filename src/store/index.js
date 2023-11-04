@@ -18,12 +18,15 @@ export default createStore({
       state.todos = state.todos.filter(todo => !todo.isComplete);
       localStorage.setItem('todos', JSON.stringify(state.todos));  
     },
-    toggleTodoStatus(state, todoId) {
-      const todo = state.allTodos.find(item => item.id === todoId);
+    onDragEnd(state){
+      localStorage.setItem('todos', JSON.stringify(state.todos))
+    },
+    completeTodo(state, id){
+      const todo = state.todos.find(item => item.id === id);
       if (todo) {
-        todo.isComplete = !todo.isComplete;
-        localStorage.setItem('todos', JSON.stringify(state.allTodos));
+          todo.isComplete = !todo.isComplete;
+          localStorage.setItem('todos', JSON.stringify(state.todos));
       }
-    }
+    },
   },
 })

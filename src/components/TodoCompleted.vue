@@ -71,17 +71,7 @@ export default{
         },
     },
     methods:{
-        completeTodo(id){
-            const todo = this.allTodos.find(item => item.id === id);
-            if (todo) {
-                todo.isComplete = !todo.isComplete;
-                localStorage.setItem('todos', JSON.stringify(this.allTodos));
-            }
-        },
-        ...mapMutations(['clearList']),
-        onDragEnd(){
-            localStorage.setItem('todos', JSON.stringify(this.todos))
-        },
+        ...mapMutations(['onDragEnd', 'clearList', 'completeTodo']),
     }
 }   
 </script>
