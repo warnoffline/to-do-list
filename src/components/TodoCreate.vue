@@ -9,7 +9,6 @@
                     class="input"
                     maxlength="50" 
                     v-model='newTodo.title' 
-                    :rules="rules"
                     label="Enter the title" 
                     hide-details="auto"
                     ></v-text-field>
@@ -20,7 +19,6 @@
                     class="input"
                     maxlength="50" 
                     v-model='newTodo.description' 
-                    :rules="rules"
                     label="Enter the description" 
                     hide-details="auto"
                     ></v-text-field>
@@ -45,9 +43,6 @@ export default{
                 isComplete: false,
                 id: 0
             },
-            rules: [
-                value => !!value || 'Required.',
-            ]
         }
     },
     methods: {
@@ -85,6 +80,7 @@ export default{
         display: flex;
         justify-content: space-around;
         align-items: center;
+        margin: 20px 0;
         .todo{
             width: 50%;
             display: flex;
@@ -123,6 +119,7 @@ export default{
         background-color: #B37840;
         font-family: 'Fregat';
         text-transform: none;
+        margin: 20px 0;
     }
     .button:hover{
         background-color: #E6E3E1;

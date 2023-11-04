@@ -9,6 +9,7 @@
     <todo-create></todo-create>
     <todo-list></todo-list>
     <todo-completed></todo-completed>
+    <Some></Some>
   </div>
 </template>
 <script>
@@ -42,7 +43,7 @@ export default{
   min-height: 100vh;
   header{
     width: 100%;
-    min-height: 8vh;
+    min-height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;

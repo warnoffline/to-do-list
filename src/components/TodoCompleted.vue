@@ -14,36 +14,50 @@
             > Clear List
             </v-btn>
         </div>
-        <v-expansion-panels class="todo-list">
-            <v-expansion-panel
-            v-for="todo in completedTodos"
-            :key="todo.id"
-            >
-                <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
-                    <div>
-                        <v-checkbox
-                        v-model="todo.isComplete"
-                        @click="completeTodo(todo.id)"
-                        color="red"
-                        hide-details="auto"
-                        ></v-checkbox>
-                    </div>
-                    <p :class="{'completed': todo.isComplete }">{{ todo.title }}</p>
-                </v-expansion-panel-title>
-                <v-expansion-panel-text class="panel-text">
-                    <div class="descr-text">
-                        <span class="descTitle">Description:&nbsp;</span>
-                        <p>{{ todo.description }}</p>
-                    </div>
-                </v-expansion-panel-text>
-            </v-expansion-panel>
-        </v-expansion-panels>
-        
+        <draggable
+          :list="todos"
+          :disabled="!enabled"
+          class="drag"
+          @end="onDragEnd">
+          <template #item="{ element }">
+            <div v-if="element.isComplete" class="list-group-item" :class="{ 'not-draggable': !enabled }">
+                <v-expansion-panels class="todo-list">
+                    <v-expansion-panel>
+                        <v-expansion-panel-title class="panel-title" expand-icon="mdi-menu-down">
+                            <div>
+                                <v-checkbox 
+                                v-model="element.isComplete" 
+                                @click="completeTodo(element.id)" 
+                                color="green" 
+                                hide-details="auto"></v-checkbox>
+                            </div>
+                            <p :class="{'completed': element.isComplete }">{{ element.title }}</p>
+                        </v-expansion-panel-title>
+                        <v-expansion-panel-text class="panel-text">
+                            <div class="descr-text">
+                                <span class="descTitle">Description:&nbsp;</span>
+                                <p>{{ element.description }}</p>
+                            </div>
+                        </v-expansion-panel-text>
+                    </v-expansion-panel>
+            </v-expansion-panels>
+            </div>
+          </template>
+        </draggable> 
     </div>
 </template>
 <script>
+import draggable from 'vuedraggable';
 import { mapGetters, mapMutations } from 'vuex';
 export default{
+    data() {
+      return {
+        enabled: true,
+      }
+    },
+    components: {
+        draggable,
+    },
     computed: {
         ...mapGetters(['allTodos']),
         todos(){
@@ -62,6 +76,9 @@ export default{
             }
         },
         ...mapMutations(['clearList']),
+        onDragEnd(){
+            localStorage.setItem('todos', JSON.stringify(this.todos))
+        }
     }
 }   
 </script>
